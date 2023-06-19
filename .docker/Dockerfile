@@ -8,16 +8,16 @@ COPY composer.json composer.json
 COPY composer.lock composer.lock
 
 RUN composer install \
-        --ignore-platform-reqs \
-        --no-interaction \
-        --no-plugins \
-        --no-scripts \
-        --prefer-dist
+    --ignore-platform-reqs \
+    --no-interaction \
+    --no-plugins \
+    --no-scripts \
+    --prefer-dist
 
 #
 # node
 #
-FROM node:14.15-buster as node
+FROM node:19.0-buster as node
 
 RUN mkdir -p /app/public
 
@@ -33,7 +33,7 @@ RUN npm install && npm run production
 #
 # App
 #
-FROM    php:7.4-apache-buster
+FROM    php:8.2-apache-buster
 
 # enabling mod rewrite
 RUN     a2enmod rewrite
